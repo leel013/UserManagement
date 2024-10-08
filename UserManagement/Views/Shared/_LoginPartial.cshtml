@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using UserManagement.Data
+@inject SignInManager<AppUsers> SignInManager
+@inject UserManager<AppUsers> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    @* <li class="nav-item">
+        <a  class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link text-light">Logout</button>
+        </form>
+    </li> *@
+
+        <!-- Example split danger button -->
+        <div class="btn-group me-3">
+            <button type="button" class="btn btn-outline-danger">@User.Identity?.Name!</button>
+            <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a></li>
+                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Change Password</a></li>
+               @*  <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Log Out</a></li> *@
+                <form class="form-inline ms-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+                
+            </ul>
+        </div>
+    }
+else
+{
+        <div class="btn-group" role="group" aria-label="button group">
+            <a class="btn btn-outline-danger" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="btn btn-outline-danger" asp-area="Identity" asp-page="/Account/Login">Login</a>
+           
+        </div>
+    
+}
+</ul>
